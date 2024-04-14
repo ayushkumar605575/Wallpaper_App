@@ -75,7 +75,7 @@ private val categoryBackground = listOf(
 fun WallpaperCategoryScreen(
     navController: NavHostController,
     paddingValues: PaddingValues,
-    wallpaperViewModel: WallpaperViewModel = viewModel()
+    wallpaperViewModel: WallpaperViewModel
 ) {
     val category = wallpaperViewModel.state.collectAsState(initial = listOf()).value
     if (category.isEmpty()) {
@@ -142,9 +142,10 @@ fun WallpaperCategoryScreen(
 @Composable
 fun NavGraphModel(paddingValues: PaddingValues) {
     val navController = rememberNavController()
+    val wallpaperViewModel: WallpaperViewModel = viewModel()
     NavHost(navController = navController, startDestination = "category") {
         composable("category") {
-            WallpaperCategoryScreen(navController, paddingValues)
+            WallpaperCategoryScreen(navController, paddingValues, wallpaperViewModel)
         }
         composable("wallpaperList") {
             WallpaperListScreen(paddingValues)
